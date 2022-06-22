@@ -1,0 +1,18 @@
+{
+  "name": "exoffice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "development": "ENV=development FAPI_ENV=dev npx playwright test --project=chromium --headed",
+    "staging": "ENV=staging FAPI_ENV=staging npx playwright test --project=chromium --headed",
+    "preprod": "",
+    "prod": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.22.2"
+  }
+}
