@@ -23,21 +23,13 @@ async openLeadsUrl() {
     await this.page.goto(`${exofficeUrl}${leadsURL}`);
 }
 
-async fillForename(forename:string) {
+
+async fillSearchInputs(forename:string, surname:string, cellPhoneNumber:string) {
     await this.forename.fill(forename);
-} 
-
-async fillSurname(surname:string) {
     await this.surname.fill(surname);
-} 
-
-async fillCellPhoneNumber(cellPhoneNumber:string) {
     await this.cellPhoneNumber.fill(cellPhoneNumber);
-} 
-
-async clickSearchBtn() {
     await this.searchBtn.click();
-} 
+}
 
 async clickTakeLead() {
     await this.takeLeadBtn.click()
