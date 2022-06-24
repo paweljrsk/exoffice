@@ -12,13 +12,14 @@ import { leadsList } from '../pages/leads-list.page';
 // export const leadCellPhoneNumber:string = `512111224`
 
     test('should get consent definitions', async ({ request, baseURL }) => {
-        const getRequest = await request.get(`${baseURL}consent-definitions`)
+        const getRequest = await request.get(`${baseURL}/consent-definitions`)
         console.log(baseURL)
         console.log(await getRequest.json())
+        expect(getRequest.status()).toEqual(200)
         });
   
     test('should post lead', async ({ request, baseURL }) => {
-      const postRequest = await request.post(`${baseURL}leads`, {
+      const postRequest = await request.post(`${baseURL}/leads`, {
           data: {
               "originId": null,
               "isDraft": true,
@@ -50,29 +51,28 @@ import { leadsList } from '../pages/leads-list.page';
           }
       })
       console.log(await postRequest.json())
-      expect(postRequest.ok()).toBeTruthy();
+      expect(postRequest.status()).toEqual(200)
+      
       });
 
         
     test('Should create new lead and connect with new client', async ({ page }) => { 
         const global = new globalPage(page);
-        const lead_data = new leadData(page);
-        const leads_list = new leadsList(page);
-        const lead_match = new leadMatch(page);
-        const lead_match_new_client = new leadMatchNewClient(page);
+        const data = new leadData(page);
+        const list = new leadsList(page);
+        const match = new leadMatch(page);
+        const matchNewClient = new leadMatchNewClient(page);
         console.log(leadForename, leadSurname, leadCellPhoneNumber)
         await global.openHomeUrl("XXX", "YYYY");
         await global.closeReminderModal()
-        await leads_list.openLeadsUrl();
-        await leads_list.fillForename(leadForename);
-        await leads_list.fillSurname(leadSurname);
-        await leads_list.clickSearchBtn();
-        await leads_list.clickTakeLead();
-        await lead_data.clickClientConnect();
-        await lead_match.addNewClient();
-        await lead_match_new_client.addNewDeal();
-        await lead_match_new_client.DealProductType("200000");
-        await lead_match_new_client.saveMatching();
+        await list.openLeadsUrl();
+        await list.fillSearchInputs(leadForename,leadSurname, leadCellPhoneNumber)
+        await list.clickTakeLead();
+        await data.clickClientConnect();
+        await match.addNewClient();
+        await matchNewClient.addNewDeal();
+        await matchNewClient.dealProductType("200000");
+        await matchNewClient.saveMatching();
         await page.pause()
         await page.waitForNavigation({ url: 'https://staging.pl/' })
         await expect(await page.url()).toContain("https://staging.pl")

@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.22.2"
+    "@faker-js/faker": "^7.3.0",
+    "@playwright/test": "^1.22.2",
+    "faker": "^5.5.3"
   }
 }
